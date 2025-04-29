@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Rocket with Smoke Animation</title>
+  <style>
+    body {
+      margin: 0;
+      background: #0b0c10;
+      font-family: 'Segoe UI', sans-serif;
+      color: white;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Starry Background */
+    .star {
+      position: absolute;
+      border-radius: 50%;
+      background: white;
+      animation: twinkle 1.5s infinite ease-in-out;
+    }
+
+    @keyframes twinkle {
+      0% {
+        opacity: 0.5;
+      }
+      50% {
+        opacity: 1;
+      }
+      100% {
+        opacity: 0.5;
+      }
+    }
+
+    /* Create stars dynamically using JavaScript */
+    .star-field {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+    }
+
+    /* Rocket Container */
+    .rocket-container {
+      position: absolute;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      animation: rocketFly 7s linear forwards; /* Rocket flies upwards */
+      z-index: 2;
+    }
+
+    .rocket {
+      font-size: 50px;
+    }
+
+    /* Smoke effect */
+    .smoke {
+      position: absolute;
+      bottom: 0;
+      width: 50px;
+      height: 50px;
+      background: rgba(255, 255, 255, 0.6);
+      border-radius: 50%;
+      animation: smokeAnimation 2s infinite ease-in-out;
+    }
+
+    .smoke:nth-child(1) {
+      animation-delay: 0s;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .smoke:nth-child(2) {
+      animation-delay: 0.2s;
+      left: 55%;
+      transform: translateX(-50%);
+    }
+
+    .smoke:nth-child(3) {
+      animation-delay: 0.4s;
+      left: 45%;
+      transform: translateX(-50%);
+    }
+
+    /* Rocket flying animation */
+    @keyframes rocketFly {
+      0% {
+        bottom: -150px;
+      }
+      50% {
+        bottom: 50%;
+      }
+      100% {
+        bottom: 100vh;
+      }
+    }
+
+    /* Smoke animation (expanding and floating upwards) */
+    @keyframes smokeAnimation {
+      0% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+      100% {
+        opacity: 0;
+        transform: translateY(-100px) scale(1.5);
+      }
+    }
+
+    /* Text animation */
+    .message {
+      font-size: 24px;
+      margin-top: 20px;
+      opacity: 0;
+      animation: messageAppear 7s forwards;
+      z-index: 1;
+    }
+
+    @keyframes messageAppear {
+      0% {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      80% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+  </style>
+</head>
+<body>
+  <div class="star-field">
+    <!-- Stars will be dynamically added by JavaScript -->
+  </div>
+  
+  <div class="rocket-container">
+    <div class="rocket">🚀</div>
+    <!-- Smoke Elements -->
+    <div class="smoke"></div>
+    <div class="smoke"></div>
+    <div class="smoke"></div>
+  </div>
+
+  <div class="message">Let’s make our inner child happy</div>
+
+  <script>
+    // Generate stars dynamically
+    for (let i = 0; i < 100; i++) {
+      let star = document.createElement("div");
+      star.classList.add("star");
+      star.style.top = `${Math.random() * 100}vh`;
+      star.style.left = `${Math.random() * 100}vw`;
+      star.style.width = `${Math.random() * 3 + 1}px`; // Size between 1px and 3px
+      star.style.height = star.style.width; // Maintain square shape
+      document.querySelector(".star-field").appendChild(star);
+    }
+  </script>
+</body>
+</html>
